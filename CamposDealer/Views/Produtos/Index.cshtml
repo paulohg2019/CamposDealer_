@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CamposDealer.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center">Produtos</h1>
+
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <form method="get" asp-action="Index" asp-controller="Produtos">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchTerm" placeholder="Pesquisar pela descrição do produto"
+                           value="@ViewBag.SearchTerm" />
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i> Pesquisar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <div class="col text-primary">
+            <a class="btn btn-success" asp-action="Create">
+                <i class="fas fa-plus"></i> Criar Novo Produto
+            </a>
+        </div>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.First().dscProduto)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().vlrUnitario)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">
+                            Nenhum produto encontrado.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.dscProduto)</td>
+                            <td class="text-center">@item.vlrUnitario.ToString("C2")</td>
+                            <td class="text-center">
+                                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.idProduto" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.idProduto" title="Detalhes">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.idProduto" title="Excluir">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model CamposDealer.Models.Produto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Criar novo produto.</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="dscProduto" class="control-label"></label>
+                <input asp-for="dscProduto" class="form-control" />
+                <span asp-validation-for="dscProduto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vlrUnitario" class="control-label"></label>
+                <input asp-for="vlrUnitario" class="form-control" step="0.01" type="number" />
+                <span asp-validation-for="vlrUnitario" class="text-danger"></span>
+            </div>
+            <p>
+                <div class="form-group">
+                    <input type="submit" value="Criar" class="btn btn-primary" />
+                    <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+                </div>
+            </p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

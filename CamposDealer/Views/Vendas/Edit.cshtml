@@ -1,0 +1,52 @@
+﻿@model CamposDealer.Models.Venda
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar venda</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="idVenda" />
+            <div class="form-group">
+                <label asp-for="idCliente" class="control-label"></label>
+                <select asp-for="idCliente" class="form-control" asp-items="ViewBag.idCliente"></select>
+                <span asp-validation-for="idCliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="idProduto" class="control-label"></label>
+                <select asp-for="idProduto" class="form-control" asp-items="ViewBag.idProduto"></select>
+                <span asp-validation-for="idProduto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="qtdVenda" class="control-label"></label>
+                <input asp-for="qtdVenda" class="form-control" />
+                <span asp-validation-for="qtdVenda" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vlrUnitarioVenda" class="control-label"></label>
+                <input asp-for="vlrUnitarioVenda" class="form-control" step="0.01" type="number" />
+                <span asp-validation-for="vlrUnitarioVenda" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dthVenda" class="control-label"></label>
+                <input asp-for="dthVenda" class="form-control" />
+                <span asp-validation-for="dthVenda" class="text-danger"></span>
+            </div>
+            <p>
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-primary" />
+                    <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+                </div>
+            </p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<CamposDealer.Models.Venda>
+
+@{
+    ViewData["Title"] = "Vendas";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center">Vendas</h1>
+
+    <!-- Pesquisa -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <form method="get" asp-action="Index" asp-controller="Vendas">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchTerm"
+                           placeholder="Pesquisar pelo Nome do Cliente ou Descrição do Produto"
+                           value="@ViewBag.SearchTerm" />
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i> Pesquisar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- criar uma nova venda -->
+    <div class="row mb-3">
+        <div class="col text-primary">
+            <a class="btn btn-success" asp-action="Create">
+                <i class="fas fa-plus"></i> Criar Nova Venda
+            </a>
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Nome do Cliente</th>
+                        <th>Descrição do Produto</th>
+                        <th>Quantidade</th>
+                        <th>Valor Unitário</th>           
+                        <th>Valor total da venda</th>
+                        <th>Data da Venda</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@item.Cliente.nmCliente</td>
+                            <td class="text-center">@item.Produto.dscProduto</td>
+                            <td class="text-center">@item.qtdVenda</td>
+                            <td class="text-center">@item.vlrUnitarioVenda.ToString("C")</td>
+                            <td class="text-center">@item.vlrTotalVenda.ToString("C")</td>
+                            <td class="text-center">@item.dthVenda.ToString("dd/MM/yyyy")</td>
+
+                            <td class="text-center">
+                                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.idVenda" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.idVenda" title="Detalhes">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.idVenda" title="Excluir">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-muted text-center">Nenhuma venda encontrada.</p>
+    }
+</div>

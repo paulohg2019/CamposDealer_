@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CamposDealer.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center">Clientes</h1>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <form method="get" asp-action="Index" asp-controller="Clientes">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchTerm" placeholder="Pesquisar por nome do cliente"
+                           value="@ViewBag.SearchTerm" />
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i> Pesquisar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col text-primary">
+            <a class="btn btn-success" asp-action="Create">
+                <i class="fas fa-plus"></i> Criar Novo Cliente
+            </a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.First().nmCliente)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().cidade)</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.nmCliente)</td>
+                            <td class="text-center">@Html.DisplayFor(modelItem => item.cidade)</td>
+                            <td class="text-center">
+                                <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.idCliente" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.idCliente" title="Detalhes">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.idCliente" title="Excluir">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">
+                            Nenhum cliente encontrado.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
